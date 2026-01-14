@@ -1,0 +1,26 @@
+services:
+  nmrs_facility:
+    image: akoruji/nmrs-tomcat:latest
+    container_name: nmrs_facility
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+  
+      
+  mysql:
+    image: akoruji/mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+    name: mysql_data
